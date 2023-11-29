@@ -1,0 +1,11 @@
+@import "../variables.scss";
+
+.base_field__wrapper__input {
+  position: relative;
+  display: flex;
+  min-height: var(--fields-min-height);
+  input {
+    min-height: 20px;
+    border-radius: $f-border-raduis;
+  }
+}

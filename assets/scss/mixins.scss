@@ -1,20 +1,36 @@
 @mixin reset-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 @mixin flex-list {
-    @include reset-list;
-    display: flex;
+  @include reset-list;
+  display: flex;
 }
 
 @mixin reset-link {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 @mixin reset-input {
-    border: none;
-    outline: none;
+  border: none;
+  outline: none;
+}
+
+@mixin devices($breakpoint) {
+  //the name of the mixin is devices
+
+  @if $breakpoint == tablet {
+    @media only screen and (max-width: 680px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == mobile {
+    @media only screen and (max-width: 481px) {
+      @content;
+    }
+  }
 }

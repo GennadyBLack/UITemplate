@@ -12,13 +12,14 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "nuxt": "^3.8.2",
+    "sass": "^1.69.5",
     "vue": "^3.3.8",
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@vee-validate/rules": "^4.11.8",
     "lodash": "^4.17.21",
     "maska": "^2.1.10",
-    "vee-validate": "^4.11.8",
-    "@vee-validate/rules": "^4.11.8"
+    "vee-validate": "^4.11.8"
   }
 }

@@ -8,14 +8,10 @@ const emit = defineEmits(["update:modelValue"]);
 <template>
   <input
     type="checkbox"
-    v-maska
     :checked="props?.modelValue"
-    @maska="
+    @change="
       (e) => {
-        emit('update:modelValue', {
-          masked: e?.target?.checked,
-          unmasked: e?.target?.checked,
-        });
+        emit('update:modelValue', e?.target?.checked);
       }
     "
   />
