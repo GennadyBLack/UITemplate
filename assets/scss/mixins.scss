@@ -34,3 +34,19 @@
     }
   }
 }
+
+@mixin mobile() {
+  @media only screen and (max-width: 481px) {
+    @content;
+  }
+}
+@mixin table() {
+  @media only screen and (max-width: 481px) {
+    @content;
+  }
+}
+@mixin desctop() {
+  @media only screen and (max-width: 481px) {
+    @content;
+  }
+}

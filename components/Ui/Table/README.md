@@ -1,75 +1,22 @@
-# Nuxt 3 Minimal Starter
-
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
-
-## Setup
-
-Make sure to install the dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Таблица
+Таблица должна находится по ширине в рамках экрана. При выходе за границу экрана, внизу таблицы появляется горизонтальный скролл
+Ширину столбца можно вручную изменять перетаскиванием границ столбца. При этом часть значений может скрываться многоточием.
+Каждая таблица имеет кнопку «Настройки», которая изменяет количество отображаемых столбцов.
+При наведении на строку таблицы курсор мыши меняется на указатель, а вся строка при этом подсвечивается.
+Соседние строки таблицы должны иметь различающиеся цвета.
+В заголовках таблицы возможна сортировка значений. При нажатии на значок сортировки, данные сортируются по возрастанию («А-Я» и «0-9» соответственно), а при следующем нажатии по убыванию. И так поочерёдно. Сортировка происходит без перезагрузки страницы.
+Фильтрация. У таблиц возможна фильтрация значений. Фильтрация происходит после выбора каждого значения и без перезагрузки страницы.
+Итоги таблицы: количество показанных записей из всех имеющихся.
+Типы значений в ячейках таблицы:
+ID;
+текст;
+число;
+изображение;
+чек-бокс;
+ссылка;
+сумма;
+выбор из списка;
+множественный выбор;
+строка (для автоматически рассчитанных значений);
+поле для быстрого редактирования.
+Возможна комбинация из нескольких элементов.

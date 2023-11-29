@@ -8,4 +8,5 @@ export default defineNuxtConfig({
     { path: "~/components/Ui", prefix: "Ui", global: true },
     "~/components",
   ],
+  build: { transpile: ["vue-toastification"] },
 });

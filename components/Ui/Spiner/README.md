@@ -1,7 +1,5 @@
 # Nuxt 3 Minimal Starter
 
-https://docs.google.com/document/d/1kDBJar8iVXhbKuEye4d1zeZrQita81AtpRr-0Uzpeig/edit
-
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 ## Setup
