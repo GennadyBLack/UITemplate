@@ -11,6 +11,7 @@ const emit = defineEmits(["update:modelValue"]);
 </script>
 <template>
   <input
+    v-bind="props"
     v-maska
     :data-maska="maska"
     @maska="

@@ -1,7 +1,7 @@
 import { useField } from "vee-validate";
 
 const useFields = () => {
-  const { emit, props } = getCurrentInstance();
+  const { emit, props, uid } = getCurrentInstance();
   const { errorMessage, handleChange } = useField(props.name, props.rules, {});
 
   const model = computed({
@@ -32,7 +32,7 @@ const useFields = () => {
       immediate: props?.forceDeps,
     }
   );
-  return { model, errorMessage, props };
+  return { model, errorMessage, props, uid };
 };
 
 export default useFields;

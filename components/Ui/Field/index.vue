@@ -19,15 +19,16 @@ defineProps({
   convertValue: { type: Function },
 });
 
-const { model, errorMessage, props } = useFields();
+const { model, errorMessage, props, uid } = useFields();
 
 const FIELDS_VARIABLES = {
   input: "UiInput",
+  input_phone: "UiInputPhone",
   radio: "UiRadio",
   checkbox: "UiCheck",
   select: "UiSelect",
   range: "UiRange",
-  toggle: "UiToggle",
+  switch: "UiSwitch",
   date: "UiDate",
   textarea: "UiTextarea",
 };
@@ -39,28 +40,35 @@ const component = computed(() => {
     return FIELDS_VARIABLES["input"];
   }
 });
+
+const CLASSES = {
+  base: `base_${props?.field ?? ""}__field base_${props?.class ?? ""}__field ${
+    errorMessage?.value ? "error" : ""
+  }`,
+  wrap: `field_${props?.field ?? ""}__wrapper field_${
+    props?.class ?? ""
+  }__wrapper`,
+  label: `field_${props?.field ?? ""}__label  field_${
+    props?.class ?? ""
+  }__label`,
+};
 </script>
 <template>
-  <div
-    class="base_field"
-    :class="[
-      `base_field__${props?.field ?? ''}`,
-      `base_field__${props?.class ?? ''}`,
-    ]"
-  >
-    {{ component }}/component
-    <div
-      class="base_field"
-      :class="[
-        `field__wrapper__${props?.field ?? ''}`,
-        `field__wrapper__${props?.class ?? ''}`,
-      ]"
-    >
+  <div :id="uid" class="base_field" :class="CLASSES?.base">
+    <label v-if="props?.label" :class="CLASSES?.label">{{
+      props?.label
+    }}</label>
+
+    <div :class="CLASSES?.wrap">
       <div class="base_field__before">
         <slot name="before"></slot>
       </div>
-      <component :is="component" v-model="model" v-bind="props" />
-
+      <component
+        :is="component"
+        v-model="model"
+        v-bind="props"
+        :id="uid + '_field'"
+      />
       <div class="base_field__after">
         <slot name="after"></slot>
       </div>
