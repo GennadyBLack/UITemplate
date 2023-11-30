@@ -16,15 +16,14 @@ defineProps({
   forceDeps: Boolean,
   deps: [Array, Object, String, Number],
   options: [Array, Object],
-  convertTo: { type: Function },
+  convertValue: { type: Function },
 });
 
-const { model, errorMessage, props, uid } = useFields();
+const { model, errorMessage, props, uid, update } = useFields();
 
 const FIELDS_VARIABLES = {
   input: "UiInput",
   input_phone: "UiInputPhone",
-  input_password: "UiInputPassword",
   radio: "UiRadio",
   checkbox: "UiCheck",
   select: "UiSelect",
@@ -64,12 +63,18 @@ const CLASSES = {
       <div class="base_field__before">
         <slot name="before"></slot>
       </div>
-      <component
-        :is="component"
-        v-model="model"
-        v-bind="props"
+
+      <slot
+        name="default"
+        :bind="{ modelValue: model, ...props }"
+        :on="{
+          input: (v) => update(v),
+          update: (v) => update(v),
+          change: (v) => update(v),
+        }"
         :id="uid + '_field'"
       />
+
       <div class="base_field__after">
         <slot name="after"></slot>
       </div>

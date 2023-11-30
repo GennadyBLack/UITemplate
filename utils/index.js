@@ -210,9 +210,14 @@ export function setProperty(obj, path, value) {
   }
 }
 
+const log = (...c) => {
+  consolr.error(c);
+};
+
 export const minMax = (min, max, val) => Math.max(min, Math.min(max, val));
 
 const Utils = {
+  log,
   setProperty,
   minMax,
   getProperty,

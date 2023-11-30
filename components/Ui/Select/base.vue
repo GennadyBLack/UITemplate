@@ -1,166 +1,185 @@
 <template>
-  <UiControl
-    :label="label"
-    :invalid="!!errorMessage"
-    :message="errorMessage || message"
-    :rightIcon="rightIcon"
-  >
-    <div
-      @focusout="onFocusout"
-      ref="wrapper"
-      tabindex="-1"
-      class="control__select"
-    >
-      <div
-        @keydown.enter="isOpened = !isOpened"
-        class="control__field"
-        tabindex="0"
-        :class="{ select__active: isOpened }"
-        @click="toggle"
-        style="position: relative"
-      >
-        <template v-if="isSearchable">
-          <div v-if="!isOpened" class="select__value">
-            {{ model?.value || "Не выбрано" }}
-          </div>
-          <input
-            ref="inputRef"
-            @input="$emit('update:searchString', $event.target.value)"
-            :value="searchString"
-            v-if="isOpened"
-            type="text"
-          />
-        </template>
-        <template v-else>
-          <div class="select__value">{{ model?.value || "Не выбрано" }}</div>
-        </template>
-      </div>
-      <div
-        ref="selectRef"
-        v-if="isOpened"
-        @scroll="handleScroll"
-        class="select__options"
-        @mousedown.prevent
-      >
-        <template v-if="options?.length">
-          <div
-            class="options__item"
-            v-for="option in options"
-            :key="option.id"
-            @mousedown="handleSelect(option)"
-            :class="{ selected: option?.id == model?.id }"
-          >
-            {{ option?.value }}
-          </div>
-        </template>
-        <template v-else>
-          <div class="options__notfound">Ничего не найдено</div>
-        </template>
-      </div>
-    </div>
-  </UiControl>
+  <UiSelect
+    @scrolled-bottom="debounceHandleScrollToBottom"
+    @scrolled-top="debounceHandleScrollToTop"
+    v-bind="props"
+    :options="currentOptions"
+    v-model="modelValue"
+    v-model:search-string="searchString"
+    :is-searchable="!!searchFn"
+  />
 </template>
-<script setup>
-const selectRef = ref();
-const props = defineProps({
-  rightIcon: [String, Object, Array],
-  errorMessage: String,
-  message: String,
-  label: String,
-  searchString: String,
-  isSearchable: Boolean,
-  closeAfterSelect: Boolean,
 
+<script setup>
+const props = defineProps({
+  limit: {
+    type: Number,
+    default: 20,
+  },
+  options: {
+    type: [Array],
+    default: [],
+  },
   modelValue: {
     type: [Object, Number, String, Array],
   },
-  options: Array,
-
-  modelValueIsNumber: {
-    default: false,
-    type: Boolean,
+  searchFn: {
+    type: Function,
   },
+  onChange: {
+    type: Function,
+  },
+  deps: [Array, Object, String, Number],
+  onDepsChange: {
+    type: Function,
+  },
+  debounceMs: {
+    type: [Number, String],
+    default: 0,
+  },
+  forceDeps: Boolean,
 });
-const emits = defineEmits(["scrolledTop", "scrolledBottom"]);
 
-const model = computed({
+const emits = defineEmits(["update:modelValue"]);
+
+const modelValue = computed({
   get() {
-    if (!props.modelValue) return;
-
-    if (props.modelValueIsNumber) {
-      return {
-        id: props.modelValue,
-        value: props.options.find((i) => i.id == props.modelValue)?.value,
-      };
-    }
-
     return props.modelValue;
   },
-  set(_value) {
-    if (!_value) {
-      return emits("update:modelValue", null);
-    }
-
-    if (props.modelValueIsNumber) {
-      if (props.modelValue === _value?.id) {
-        return emits("update:modelValue", null);
-      }
-
-      return emits("update:modelValue", _value.id);
-    }
-
-    if (props.modelValue?.id === _value?.id) {
-      return emits("update:modelValue", null);
-    }
-
-    return emits("update:modelValue", _value);
+  set(value) {
+    emits("update:modelValue", value);
   },
 });
 
-const isOpened = ref(false);
+const currentOptions = ref(props.options || []);
+const currentSearchLimit = ref(props.limit);
+const searchString = ref("");
+const page = ref(1);
 
-watch([selectRef], () => {
-  if (selectRef.value) {
-    selectRef.value.scrollTo(0, selectRef.value.children[0].clientHeight / 15);
+const debounceHandleScrollToBottom = useDebounce(
+  handleScrollToBottom,
+  props.debounceMs
+);
+const debounceHandleScrollToTop = useDebounce(
+  handleScrollToTop,
+  props.debounceMs
+);
+
+const debounceHandleSearch = useDebounce(handleSearch, props.debounceMs);
+
+// Контекст данного селекта, может понадобится для кастомизации специфичных моментов
+const ctx = computed(() => ({
+  searchString: searchString.value,
+  searchFn: props.searchFn,
+  handleSearch: handleSearch,
+  debounceHandleSearch: debounceHandleSearch,
+  initialOptions: props.options,
+  currentOptions: currentOptions.value,
+  modelValue: props.modelValue,
+  updateModelValue: (value) => emits("update:modelValue", value),
+}));
+
+// При изменении поисковой строки вызывает handleSearch с задержкой
+watch(
+  searchString,
+  async () => {
+    page.value = 1;
+    await debounceHandleSearch(searchString.value);
+  },
+  {
+    immediate: true,
   }
-});
+);
 
-const inputRef = ref();
-
-const toggle = () => {
-  isOpened.value = !isOpened.value;
-  nextTick(() => {
-    inputRef.value?.focus();
-  });
-};
-
-const wrapper = ref();
-
-const onFocusout = (e) => {
-  if (!wrapper.value.contains(e.relatedTarget)) isOpened.value = false;
-};
-
-const handleSelect = (option) => {
-  if (props.closeAfterSelect) {
-    isOpened.value = false;
+// Срабатывает при изменении зависимостей в массиве deps
+watch(
+  () => props.deps,
+  (cur, prev) => {
+    if (
+      Array.isArray(prev)
+        ? prev.find((item) => item !== undefined)
+        : prev !== undefined
+    ) {
+      props?.onDepsChange?.(ctx.value);
+    }
+  },
+  {
+    deep: true,
+    immediate: props.forceDeps,
   }
-  model.value = option;
-};
+);
 
-const handleScroll = (event) => {
-  const div = event.target;
-
-  const scrollFromTop = div.scrollTop;
-  const scrollFromBottom =
-    div.scrollHeight - (div.scrollTop + div.clientHeight);
-
-  if (scrollFromBottom < 20) {
-    emits("scrolledBottom", div);
+// Срабатывает при изменении выбора
+watch(
+  () => props.modelValue,
+  async () => {
+    props.onChange?.(ctx.value);
+  },
+  {
+    deep: true,
+    immediate: true,
   }
-  if (scrollFromTop < 20) {
-    emits("scrolledTop", div);
+);
+
+// Записывает новый массив на основе поисковой строки и лимита, вызывается при вводе символов
+async function handleSearch(_searchString) {
+  if (!props.searchFn) return;
+
+  currentSearchLimit.value = props.limit;
+
+  const options = await props.searchFn(
+    ctx.value,
+    searchString.value,
+    currentSearchLimit.value,
+    page.value
+  );
+
+  currentOptions.value = [...options];
+}
+
+async function handleScrollToTop(div) {
+  return;
+  if (!props.searchFn) return;
+
+  if (page.value <= 2) {
+    return;
   }
-};
+  page.value--;
+
+  const first = await props.searchFn(
+    ctx.value,
+    searchString.value,
+    currentSearchLimit.value,
+    page.value - 1
+  );
+  const second = await props.searchFn(
+    ctx.value,
+    searchString.value,
+    currentSearchLimit.value,
+    page.value
+  );
+  const last = await props.searchFn(
+    ctx.value,
+    searchString.value,
+    currentSearchLimit.value,
+    page.value + 1
+  );
+  currentOptions.value = [...first, ...second, ...last];
+
+  div.scrollTo(0, div.children[0].clientHeight / 15);
+}
+
+async function handleScrollToBottom() {
+  if (!props.searchFn) return;
+
+  page.value++;
+
+  const newPages = await props.searchFn(
+    ctx.value,
+    searchString.value,
+    currentSearchLimit.value,
+    page.value
+  );
+  currentOptions.value = [...currentOptions.value, ...newPages];
+}
 </script>
-
-<style lang="scss"></style>

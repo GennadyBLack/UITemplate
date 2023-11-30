@@ -4,13 +4,19 @@ const useFields = () => {
   const { emit, props, uid } = getCurrentInstance();
   const { errorMessage, handleChange } = useField(props.name, props.rules, {});
 
+  const update = (newValue) => {
+    const pre = props?.convertTo?.(newValue) ?? newValue;
+    handleChange(pre);
+    emit("update:model-value", pre);
+    emit("update:clear-value", newValue);
+  };
+
   const model = computed({
     get() {
       return props.modelValue;
     },
     set(newValue) {
-      handleChange(newValue);
-      emit("update:model-value", newValue);
+      update(newValue);
     },
   });
 
@@ -23,7 +29,7 @@ const useFields = () => {
           : prev !== undefined
       ) {
         let inst = getCurrentInstance();
-        emit("update:dependencies", props?.value, props?.deps, inst);
+        emit("update:dependencies", props?.value, props?.deps, inst, cur);
         props?.onChangeDeps?.(inst);
       }
     },
@@ -32,7 +38,8 @@ const useFields = () => {
       immediate: props?.forceDeps,
     }
   );
-  return { model, errorMessage, props, uid };
+
+  return { model, errorMessage, props, uid, update };
 };
 
 export default useFields;
