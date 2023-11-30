@@ -1,12 +1,3 @@
-import RenderTemplate from "~~/components/ui/RenderTemplate.vue";
-
-export const cellRenderHelper = ({ template, onClick, customClass }) => {
-  return {
-    cellRendererParams: { template, onClick, customClass },
-    cellRenderer: RenderTemplate,
-  };
-};
-
 function cloneDeep(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
@@ -211,7 +202,7 @@ export function setProperty(obj, path, value) {
 }
 
 const log = (...c) => {
-  consolr.error(c);
+  console.error(c);
 };
 
 export const minMax = (min, max, val) => Math.max(min, Math.min(max, val));
@@ -230,7 +221,6 @@ const Utils = {
   formatObjectReverse,
   formatObject,
   isArraysEqual,
-  cellRenderHelper,
   mergeObjectsData,
 };
 

@@ -12,7 +12,7 @@ const emit = defineEmits(["update:modelValue"]);
 </script>
 <template>
   <div class="d-flex">
-    <button @click="" type="button">Phone</button>
+    <button @click="" type="button"></button>
     <input
       v-bind="props"
       v-maska
@@ -26,5 +26,6 @@ const emit = defineEmits(["update:modelValue"]);
       "
       :value="props?.modelValue"
     />
+    <button @click="" type="button"></button>
   </div>
 </template>

@@ -17,6 +17,8 @@ defineProps({
   deps: [Array, Object, String, Number],
   options: [Array, Object],
   convertTo: { type: Function },
+  before: [Function, Object],
+  after: [Function, Object],
 });
 
 const { model, errorMessage, props, uid } = useFields();
@@ -32,6 +34,8 @@ const FIELDS_VARIABLES = {
   switch: "UiSwitch",
   date: "UiDate",
   textarea: "UiTextarea",
+  slot: "UiFieldSlot",
+  empty: "UiFieldEmpty",
 };
 
 const component = computed(() => {
@@ -62,7 +66,7 @@ const CLASSES = {
 
     <div :class="CLASSES?.wrap">
       <div class="base_field__before">
-        <slot name="before"></slot>
+        <slot name="before"><component :is="props?.before"></component></slot>
       </div>
       <component
         :is="component"
@@ -71,9 +75,11 @@ const CLASSES = {
         :id="uid + '_field'"
       />
       <div class="base_field__after">
-        <slot name="after"></slot>
+        <slot name="after"><component :is="props?.after"></component></slot>
       </div>
     </div>
-    <div class="error_message">Валидация - {{ errorMessage }}</div>
+    <div class="error_message" v-if="errorMessage">
+      Валидация - {{ errorMessage }}
+    </div>
   </div>
 </template>

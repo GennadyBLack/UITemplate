@@ -23,13 +23,14 @@ const useFields = () => {
   watch(
     () => props?.deps,
     (cur, prev) => {
+      console.error(prev, "PREEV");
       if (
         Array.isArray(prev)
           ? prev.find((item) => item !== undefined)
           : prev !== undefined
       ) {
         let inst = getCurrentInstance();
-        emit("update:dependencies", props?.value, props?.deps, inst, cur);
+        emit("update:deps", props?.value, props?.deps, inst, cur);
         props?.onChangeDeps?.(inst);
       }
     },

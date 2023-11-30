@@ -6,14 +6,13 @@ const props = defineProps({
 const emit = defineEmits(["update:modelValue"]);
 </script>
 <template>
-  {{}}
   <input
-    type="checkbox"
     :checked="props?.modelValue"
     @change="
       (e) => {
         emit('update:modelValue', e?.target?.checked);
       }
     "
+    type="checkbox"
   />
 </template>
