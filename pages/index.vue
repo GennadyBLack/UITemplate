@@ -59,6 +59,7 @@ const fields = ref({
 
     </pre>
     <button type="submit">onSubmit</button>
+    <UiIcon type="ios-add" />
   </form>
 </template>
 <style>

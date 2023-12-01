@@ -12,3 +12,15 @@
 @import "variables";
 @import "mixins";
 @import "functions";
+
+@import "Ui/icon.scss";
+
+@font-face {
+  font-family: Ionicons;
+  src: url("../fonts//icon/ionicons.woff2") format("woff2"),
+    url("../fonts//icon/ionicons.woff") format("woff"),
+    url("../fonts//icon//ionicons.ttf") format("truetype"),
+    url("../fonts/icon/ionicons.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}

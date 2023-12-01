@@ -10,7 +10,6 @@ const props = defineProps({
 const emit = defineEmits(["update:modelValue"]);
 </script>
 <template>
-  {{ console.error(props) }}
   <input
     v-bind="props"
     v-maska

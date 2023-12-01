@@ -23,7 +23,6 @@ const useFields = () => {
   watch(
     () => props?.deps,
     (cur, prev) => {
-      console.error(prev, "PREEV");
       if (
         Array.isArray(prev)
           ? prev.find((item) => item !== undefined)
