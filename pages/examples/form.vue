@@ -6,9 +6,8 @@ const fields = [
     name: "title",
     maska: "#-##",
     rules: { required: true },
-    before: h(Icon, { name: "trash" }),
+    before: h(Icon, { type: "ios-add-circle" }),
   },
-  { field: "input", name: "name" },
 ];
 </script>
 <template>

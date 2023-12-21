@@ -27,6 +27,8 @@ const isArray = (obj) => {
   return obj && typeof obj == "object" && Array?.isArray(obj);
 };
 
+export const isClient = typeof window !== "undefined";
+
 export const mergeObjectsData = (initialData, data, formatArray) => {
   try {
     let pre = {};
@@ -221,6 +223,7 @@ const Utils = {
   formatObjectReverse,
   formatObject,
   isArraysEqual,
+  isClient,
   mergeObjectsData,
 };
 

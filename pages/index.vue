@@ -14,11 +14,19 @@ const fields = ref({
   phone: null,
   test: "asds",
 });
+
+const log = () => console.error("error");
 </script>
 <template>
   <UiIcon name="trash" />
+  <div class="aaa">
+    <UiDropdown
+      ><div>aaaa</div>
+      <template #content>PAPAPAP</template></UiDropdown
+    >
+  </div>
   <form action="" @submit="onSubmit" class="p-5">
-    <pre><h1>I need style</h1></pre>
+    <pre><h1 @contextmenu.prevent="log">I need style</h1></pre>
     <pre>
     <UiField
       v-model="fields.v"
@@ -42,22 +50,24 @@ const fields = ref({
     <template #before>BEFORE</template><template #after>AFTER</template></UiField>
     <div class="h1">Получаемое значение: {{ fields.r }}</div></pre>
 
-    <pre><UiField @update:deps="(...c)=>{Utils.log(c)}" v-model="fields.l" :deps="[fields.v]" name="l" rules="required"  maska="#-#" field="input" variant="phone" placeholder="asds" label="asds"><template #before>BEFORE</template><template #after>AFTER</template></UiField>
-  <div class="h1"> Получаемое значение: {{ fields.l }}</div></pre>
+    <UiField
+      v-model="fields.l"
+      name="l"
+      rules="required"
+      maska="#-#"
+      field="input_phone"
+      variant="phone"
+      placeholder="asds"
+      label="asds"
+      ><template #before>BEFORE</template
+      ><template #after>AFTER</template></UiField
+    >
+    <div class="h1">Получаемое значение: {{ fields.l }}</div>
 
     <pre><UiField v-model="fields.s" :options="[{id:1,value:'oaosdosaoo'}]" :convert-to="(val)=>val?.id"  name="s" rules="required"  field="select" placeholder="asds" label="asds"><template #before>BEFORE</template></UiField>
   <div class="h1"> Получаемое значение: {{ fields.s }}</div></pre>
 
     <pre><UiField v-model="fields.phone" name="phone" rules="required"  maska="#-#" field="input_phone" placeholder="asds" label="asds"><template #before>BEFORE</template><template #after>AFTER</template></UiField></pre>
-
-    <pre>
-
-
-    <!-- <UiFieldEmpty name="l" v-model="fields.l">
-     <UiCheck   v-on="on" v-bind="bind"/>
-    </UiFieldEmpty> -->
-
-    </pre>
     <button type="submit">onSubmit</button>
     <UiIcon type="ios-add" />
   </form>
@@ -73,5 +83,11 @@ pre {
 }
 .error_message {
   color: red;
+}
+.aaa {
+  height: 20px;
+  width: 200px;
+  background: rgb(173, 252, 176);
+  overflow: hidden;
 }
 </style>

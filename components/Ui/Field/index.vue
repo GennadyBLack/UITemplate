@@ -1,5 +1,5 @@
 <script setup>
-import useFields from "~/conposables/useFields";
+import useFields from "~/composables/useFields";
 
 defineProps({
   value: [String, Number, Boolean],
@@ -63,7 +63,6 @@ const CLASSES = {
     <label v-if="props?.label" :class="CLASSES?.label">{{
       props?.label
     }}</label>
-
     <div :class="CLASSES?.wrap">
       <div class="base_field__before">
         <slot name="before"><component :is="props?.before"></component></slot>
