@@ -1,4 +1,5 @@
 <script setup>
+import Modal from "~/components/Ui/Modal";
 import { useForm } from "vee-validate";
 import Utils from "~/utils";
 const onSubmit = useForm()?.handleSubmit((values) => {
@@ -18,13 +19,17 @@ const fields = ref({
 const log = () => console.error("error");
 </script>
 <template>
+  <Modal>
+    <template #activator>aaaa</template>
+    <template #content>AAAAAAAA</template>
+  </Modal>
   <UiIcon name="trash" />
-  <div class="aaa">
+  <!-- <div class="aaa">
     <UiDropdown
       ><div>aaaa</div>
       <template #content>PAPAPAP</template></UiDropdown
     >
-  </div>
+  </div> -->
   <form action="" @submit="onSubmit" class="p-5">
     <pre><h1 @contextmenu.prevent="log">I need style</h1></pre>
     <pre>
@@ -49,7 +54,6 @@ const log = () => console.error("error");
     
     <template #before>BEFORE</template><template #after>AFTER</template></UiField>
     <div class="h1">Получаемое значение: {{ fields.r }}</div></pre>
-
     <UiField
       v-model="fields.l"
       name="l"
@@ -89,5 +93,10 @@ pre {
   width: 200px;
   background: rgb(173, 252, 176);
   overflow: hidden;
+}
+
+.field___label:focus {
+  background-color: purple;
+  color: red;
 }
 </style>

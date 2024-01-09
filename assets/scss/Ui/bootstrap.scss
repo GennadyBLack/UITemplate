@@ -5015,3 +5015,9 @@
 }
 
 /*# sourceMappingURL=bootstrap-grid.css.map */
+
+.base_field:focus-within {
+  .field_input__label {
+    color: red;
+  }
+}

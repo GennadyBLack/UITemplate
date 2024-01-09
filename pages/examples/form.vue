@@ -1,7 +1,9 @@
 <script setup>
 import Icon from "@/components/Ui/Icon";
+
 const fields = [
   {
+    label: "12",
     field: "input",
     name: "title",
     maska: "#-##",

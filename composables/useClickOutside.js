@@ -1,7 +1,7 @@
 import { unref } from "vue";
 import useEventListener from "./useEventListener";
 
-export default function useClickAway(target, handler) {
+export default function useClickOutside(target, handler) {
   const event = "pointerdown";
 
   if (typeof window === "undefined" || !window) {

@@ -45,8 +45,7 @@ import {
 
 import usePopper from "@/composables/usePopper";
 import useContent from "~/composables/useContent";
-import useClickAway from "~/composables/useClickAway";
-// import { usePopper, useContent, useClickAway } from "@/composables";
+import useClickOutside from "~/composables/useClickOutside";
 
 const emit = defineEmits(["open:popper", "close:popper"]);
 const slots = useSlots();
@@ -138,7 +137,7 @@ const props = defineProps({
    */
   zIndex: {
     type: [Number, String],
-    default: 9999,
+    default: 100,
   },
   /**
    * Display an arrow on the popper
@@ -297,7 +296,7 @@ watchEffect(() => {
  */
 watchEffect(() => {
   if (enableClickAway.value) {
-    useClickAway(popperContainerNode, closePopper);
+    useClickOutside(popperContainerNode, closePopper);
   }
 });
 </script>

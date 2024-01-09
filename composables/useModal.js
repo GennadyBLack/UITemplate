@@ -1,9 +1,24 @@
-const useModal = ({ name, closeOnDestroy = true, stretch = false }) => {
+const useModal = ({
+  name,
+  closeOnDestroy = true,
+  stretch = false,
+  style = {},
+}) => {
   const modalsList = useState("modalsList", () => {
     return {};
   });
 
-  const open = ({ options = {} }) => {
+  const bodyOverflowHidden = useState("bodyOverflowHidden", () => false);
+
+  const styles = useState("styles", () => {
+    try {
+      return { ...style };
+    } catch (error) {
+      console.error(error);
+    }
+  });
+
+  const open = ({ options = {} } = {}) => {
     try {
       modalsList.value[name] = {
         open: true,
@@ -16,6 +31,20 @@ const useModal = ({ name, closeOnDestroy = true, stretch = false }) => {
     }
   };
 
+  const overflowHidden = () => {
+    document.body.style = "overflow:auto";
+    bodyOverflowHidden.value = false;
+  };
+
+  const overflowAuto = () => {
+    document.body.style = "overflow:hidden";
+    bodyOverflowHidden.value = true;
+  };
+
+  const overflowToggle = () => {
+    !!bodyOverflowHidden.value ? overflowAuto() : overflowHidden();
+  };
+
   const close = () => {
     try {
       modalsList.value[name] = false;
@@ -24,7 +53,7 @@ const useModal = ({ name, closeOnDestroy = true, stretch = false }) => {
     }
   };
 
-  const toggle = ({ options = {} }) => {
+  const toggle = ({ options = {} } = {}) => {
     try {
       modalsList.value[name] = modalsList?.value?.[name]?.open
         ? {}
@@ -64,10 +93,22 @@ const useModal = ({ name, closeOnDestroy = true, stretch = false }) => {
   });
 
   const isOpen = computed(() => {
-    return modalsList?.value?.[name]?.open;
+    try {
+      return modalsList?.value?.[name]?.open;
+    } catch (error) {
+      console.error(error);
+    }
   });
 
-  return { modalsList, isOpen: isOpen, close, open, toggle };
+  return {
+    modalsList,
+    isOpen: isOpen,
+    close,
+    open,
+    toggle,
+    styles,
+    overflowToggle,
+  };
 };
 
 export default useModal;

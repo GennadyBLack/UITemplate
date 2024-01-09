@@ -1,7 +1,17 @@
 import { useField } from "vee-validate";
+import { FIELDS_VARIABLES } from "@/utils/constants";
 
 const useFields = () => {
-  const { emit, props, uid } = getCurrentInstance();
+  const { emit, props, uid, ...instance } = getCurrentInstance();
+
+  const component = computed(() => {
+    if (props?.field && FIELDS_VARIABLES.hasOwnProperty(props?.field)) {
+      return FIELDS_VARIABLES[props?.field];
+    } else {
+      return FIELDS_VARIABLES["input"];
+    }
+  });
+
   const { errorMessage, handleChange } = useField(props.name, props.rules, {});
 
   const update = (newValue) => {
@@ -39,7 +49,26 @@ const useFields = () => {
     }
   );
 
-  return { model, errorMessage, props, uid, update };
+  const CLASSES = {
+    base: `base_${props?.field ?? ""}__field base_${
+      props?.class ?? ""
+    }__field ${errorMessage?.value ? "error" : ""}`,
+
+    wrap: `field_${props?.field ?? ""}__wrapper field_${
+      props?.class ?? ""
+    }__wrapper`,
+  };
+
+  return {
+    model,
+    errorMessage,
+    props,
+    uid,
+    update,
+    instance,
+    component,
+    CLASSES,
+  };
 };
 
 export default useFields;
