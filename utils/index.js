@@ -209,8 +209,18 @@ const log = (...c) => {
 
 export const minMax = (min, max, val) => Math.max(min, Math.min(max, val));
 
+export function oneOf(value, validList) {
+  for (let i = 0; i < validList.length; i++) {
+    if (value === validList[i]) {
+      return true;
+    }
+  }
+  return false;
+}
+
 const Utils = {
   log,
+  oneOf,
   setProperty,
   minMax,
   getProperty,

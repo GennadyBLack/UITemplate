@@ -19,9 +19,35 @@ const fields = ref({
 const log = () => console.error("error");
 </script>
 <template>
-  <Modal>
-    <template #activator>aaaa</template>
-    <template #content>AAAAAAAA</template>
+  <Modal position="right">
+    <template #activator><button>open modal</button></template>
+    <template #content
+      ><div class="bg-white">
+        AAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      </div></template
+    >
   </Modal>
   <UiIcon name="trash" />
   <!-- <div class="aaa">
@@ -68,6 +94,32 @@ const log = () => console.error("error");
     >
     <div class="h1">Получаемое значение: {{ fields.l }}</div>
 
+    <pre><UiField v-model="fields.s" :options="[{id:1,value:'oaosdosaoo'}]" :convert-to="(val)=>val?.id"  name="s" rules="required"  field="select" placeholder="asds" label="asds"><template #before>BEFORE</template></UiField>
+  <div class="h1"> Получаемое значение: {{ fields.s }}</div></pre>
+    <pre><UiField v-model="fields.s" :options="[{id:1,value:'oaosdosaoo'}]" :convert-to="(val)=>val?.id"  name="s" rules="required"  field="select" placeholder="asds" label="asds"><template #before>BEFORE</template></UiField>
+  <div class="h1"> Получаемое значение: {{ fields.s }}</div></pre>
+    <pre><UiField v-model="fields.s" :options="[{id:1,value:'oaosdosaoo'}]" :convert-to="(val)=>val?.id"  name="s" rules="required"  field="select" placeholder="asds" label="asds"><template #before>BEFORE</template></UiField>
+  <div class="h1"> Получаемое значение: {{ fields.s }}</div></pre>
+    <pre><UiField v-model="fields.s" :options="[{id:1,value:'oaosdosaoo'}]" :convert-to="(val)=>val?.id"  name="s" rules="required"  field="select" placeholder="asds" label="asds"><template #before>BEFORE</template></UiField>
+  <div class="h1"> Получаемое значение: {{ fields.s }}</div></pre>
+    <pre><UiField v-model="fields.s" :options="[{id:1,value:'oaosdosaoo'}]" :convert-to="(val)=>val?.id"  name="s" rules="required"  field="select" placeholder="asds" label="asds"><template #before>BEFORE</template></UiField>
+  <div class="h1"> Получаемое значение: {{ fields.s }}</div></pre>
+    <pre><UiField v-model="fields.s" :options="[{id:1,value:'oaosdosaoo'}]" :convert-to="(val)=>val?.id"  name="s" rules="required"  field="select" placeholder="asds" label="asds"><template #before>BEFORE</template></UiField>
+  <div class="h1"> Получаемое значение: {{ fields.s }}</div></pre>
+    <pre><UiField v-model="fields.s" :options="[{id:1,value:'oaosdosaoo'}]" :convert-to="(val)=>val?.id"  name="s" rules="required"  field="select" placeholder="asds" label="asds"><template #before>BEFORE</template></UiField>
+  <div class="h1"> Получаемое значение: {{ fields.s }}</div></pre>
+    <pre><UiField v-model="fields.s" :options="[{id:1,value:'oaosdosaoo'}]" :convert-to="(val)=>val?.id"  name="s" rules="required"  field="select" placeholder="asds" label="asds"><template #before>BEFORE</template></UiField>
+  <div class="h1"> Получаемое значение: {{ fields.s }}</div></pre>
+    <pre><UiField v-model="fields.s" :options="[{id:1,value:'oaosdosaoo'}]" :convert-to="(val)=>val?.id"  name="s" rules="required"  field="select" placeholder="asds" label="asds"><template #before>BEFORE</template></UiField>
+  <div class="h1"> Получаемое значение: {{ fields.s }}</div></pre>
+    <pre><UiField v-model="fields.s" :options="[{id:1,value:'oaosdosaoo'}]" :convert-to="(val)=>val?.id"  name="s" rules="required"  field="select" placeholder="asds" label="asds"><template #before>BEFORE</template></UiField>
+  <div class="h1"> Получаемое значение: {{ fields.s }}</div></pre>
+    <pre><UiField v-model="fields.s" :options="[{id:1,value:'oaosdosaoo'}]" :convert-to="(val)=>val?.id"  name="s" rules="required"  field="select" placeholder="asds" label="asds"><template #before>BEFORE</template></UiField>
+  <div class="h1"> Получаемое значение: {{ fields.s }}</div></pre>
+    <pre><UiField v-model="fields.s" :options="[{id:1,value:'oaosdosaoo'}]" :convert-to="(val)=>val?.id"  name="s" rules="required"  field="select" placeholder="asds" label="asds"><template #before>BEFORE</template></UiField>
+  <div class="h1"> Получаемое значение: {{ fields.s }}</div></pre>
+    <pre><UiField v-model="fields.s" :options="[{id:1,value:'oaosdosaoo'}]" :convert-to="(val)=>val?.id"  name="s" rules="required"  field="select" placeholder="asds" label="asds"><template #before>BEFORE</template></UiField>
+  <div class="h1"> Получаемое значение: {{ fields.s }}</div></pre>
     <pre><UiField v-model="fields.s" :options="[{id:1,value:'oaosdosaoo'}]" :convert-to="(val)=>val?.id"  name="s" rules="required"  field="select" placeholder="asds" label="asds"><template #before>BEFORE</template></UiField>
   <div class="h1"> Получаемое значение: {{ fields.s }}</div></pre>
 

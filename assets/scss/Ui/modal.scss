@@ -1,18 +1,52 @@
-.default-modal {
-  .default-content {
-    background: red;
-    width: fit-content;
-    width: 30%;
-    height: 30%;
-    position: absolute;
-    z-index: 9999;
-  }
-  .modal-background-shadow {
-    /* темный фон при открытии модалки должен быть на всю страницу */
+$modal-shadow: rgba(0, 0, 0, 0.4);
+
+.default-content {
+  width: -moz-fit-content;
+  width: fit-content;
+  overflow: visible;
+  // height: 100%;
+  z-index: 9999;
+  display: flex;
+}
+.modal-background {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 100;
+  &-shadow {
+    background-color: $modal-shadow;
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     z-index: 100;
-    background-color: rgba(0, 0, 0, 0.4); /* цвет фона - прозрачный черный */
   }
+}
+
+.default-modal {
+  .content-position {
+    &--center {
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &--right {
+      right: 0;
+      position: absolute;
+      top: 0;
+      width: 30%;
+    }
+    &--left {
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 30%;
+    }
+  }
+}
+
+.bg-white {
+  width: 100%;
+  background-color: white;
+  overflow: scroll;
 }
