@@ -8,13 +8,14 @@ const useModal = ({
   const modalsList = useState("modalsList", () => {
     return {};
   });
+  const { uid } = getCurrentInstance();
 
   const bodyOverflowHidden = useState("bodyOverflowHidden", () => false);
 
   const open = ({ options = {} } = {}) => {
     const len = Object.keys(modalsList?.value)?.length;
     try {
-      modalsList.value[name] = {
+      modalsList.value[name ?? uid] = {
         open: true,
         stretch,
         styles: { zIndex: len ? len * 100 : 100, ...style },
@@ -43,7 +44,8 @@ const useModal = ({
 
   const close = () => {
     try {
-      modalsList.value[name] = false;
+      modalsList.value[name ?? uid] = false;
+      overflowAuto();
     } catch (error) {
       console.error(error);
     }
@@ -51,7 +53,7 @@ const useModal = ({
 
   const toggle = ({ options = {} } = {}) => {
     try {
-      modalsList.value[name] = modalsList?.value?.[name]?.open
+      modalsList.value[name ?? uid] = modalsList?.value?.[name ?? uid]?.open
         ? {}
         : {
             open: true,
@@ -90,8 +92,8 @@ const useModal = ({
 
   const styles = computed(() => {
     try {
-      return modalsList?.value?.[name]?.open
-        ? modalsList?.value?.[name]?.styles
+      return modalsList?.value?.[name ?? uid]?.open
+        ? modalsList?.value?.[name ?? uid]?.styles
         : {};
     } catch (error) {
       console.error(error);
@@ -100,7 +102,7 @@ const useModal = ({
 
   const isOpen = computed(() => {
     try {
-      return modalsList?.value?.[name]?.open;
+      return modalsList?.value?.[name ?? uid]?.open;
     } catch (error) {
       console.error(error);
     }

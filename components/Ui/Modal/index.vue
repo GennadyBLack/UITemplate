@@ -2,9 +2,9 @@
 const props = defineProps({
   name: {
     type: String,
-    default: "default",
+    default: null,
   },
-  position: { type: String, default: "center" },
+  position: { type: String, default: "center" }, //top left bottom right
   prefix: { type: String, default: "default" },
   loading: { type: Boolean, default: false },
   style: { type: Object, default: {} },
@@ -14,6 +14,11 @@ const props = defineProps({
   overflow: { type: Boolean, default: true },
   scrollable: { type: Boolean, default: false },
   stiky: { type: Boolean, default: false },
+  animation: {
+    type: String,
+    default: "bounce",
+    validator: (v) => ["bounce", "fade"].includes(v),
+  },
 });
 
 const CLASSES = computed(() => {
@@ -56,8 +61,8 @@ watchEffect(() => {
       <slot name="activator" />
     </div>
     <Teleport to="body">
-      <Transition name="fade" v-if="isOpen">
-        <div :class="CLASSES.modal_wrapper">
+      <Transition :name="props?.animation">
+        <div :class="CLASSES.modal_wrapper" v-if="isOpen">
           <div
             :class="CLASSES?.content"
             @keyup.esc="close"

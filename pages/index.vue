@@ -1,11 +1,15 @@
 <script setup>
+//scroll skilet  input select  message notice modal add bottom and top tree poptip rate  tabs breadcrumbsbutton
 import Modal from "~/components/Ui/Modal";
+import UiList from "@/components/Ui/List";
 import { useForm } from "vee-validate";
 import Utils from "~/utils";
+import usePopup from "~/composables/usePopup";
 const onSubmit = useForm()?.handleSubmit((values) => {
   console.error(values);
 });
 
+usePopup();
 const props = defineProps({});
 const fields = ref({
   l: false,
@@ -14,12 +18,69 @@ const fields = ref({
   v: null,
   phone: null,
   test: "asds",
+  age: null,
 });
+const items = ref([]);
 
-const log = () => console.error("error");
+const fetchNewItems = () => {
+  const pre = [
+    { title: "asdasdasd" },
+    { title: "asdasdasd" },
+    { title: "asdasdasd" },
+    { title: "asdasdasd" },
+    { title: "asdasdasd" },
+    { title: "asdasdasd" },
+    { title: "asdasdasd" },
+    { title: "asdasdasd" },
+    { title: "asdasdasd" },
+  ];
+  items.value = [...items?.value, ...pre];
+};
+fetchNewItems();
 </script>
 <template>
-  <Modal position="right">
+  <button @click="fetchNewItems">fetch</button>
+
+  <UiList
+    :items="items"
+    class="scrolled"
+    @update:modal-value="fetchNewItems"
+    :loading="loading"
+  >
+    <template #item="{ item }">{{ item?.title }}</template>
+  </UiList>
+  <UiBtn />
+  <Modal position="bottom" animation="asd">
+    <template #activator><button type="button">open modal</button></template>
+    <template #content
+      ><div class="bg-white">
+        bbbbbbb AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+      </div></template
+    >
+  </Modal>
+  <Modal position="bottom" animation="asd">
     <template #activator><button>open modal</button></template>
     <template #content
       ><div class="bg-white">
@@ -50,12 +111,12 @@ const log = () => console.error("error");
     >
   </Modal>
   <UiIcon name="trash" />
-  <!-- <div class="aaa">
+  <div class="aaa">
     <UiDropdown
       ><div>aaaa</div>
       <template #content>PAPAPAP</template></UiDropdown
     >
-  </div> -->
+  </div>
   <form action="" @submit="onSubmit" class="p-5">
     <pre><h1 @contextmenu.prevent="log">I need style</h1></pre>
     <pre>
@@ -150,5 +211,9 @@ pre {
 .field___label:focus {
   background-color: purple;
   color: red;
+}
+.scrolled {
+  max-height: 300px;
+  overflow: scroll;
 }
 </style>

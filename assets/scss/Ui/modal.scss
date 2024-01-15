@@ -1,11 +1,12 @@
-$modal-shadow: rgba(0, 0, 0, 0.4);
-
+:root {
+  --modal-shadow: rgba(0, 0, 0, 0.5);
+  --moodal-index: 9999;
+}
 .default-content {
   width: -moz-fit-content;
   width: fit-content;
   overflow: visible;
-  // height: 100%;
-  z-index: 9999;
+  z-index: var(--moodal-index);
   display: flex;
 }
 .modal-background {
@@ -14,12 +15,15 @@ $modal-shadow: rgba(0, 0, 0, 0.4);
   position: fixed;
   z-index: 100;
   &-shadow {
-    background-color: $modal-shadow;
+    background-color: var(--modal-shadow);
     width: 100%;
     height: 100%;
     position: fixed;
     z-index: 100;
   }
+}
+.default-toggler {
+  width: fit-content;
 }
 
 .default-modal {
@@ -42,6 +46,18 @@ $modal-shadow: rgba(0, 0, 0, 0.4);
       top: 0;
       width: 30%;
     }
+    &--bottom {
+      left: 0;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+    &--top {
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
   }
 }
 
@@ -49,4 +65,63 @@ $modal-shadow: rgba(0, 0, 0, 0.4);
   width: 100%;
   background-color: white;
   overflow: scroll;
+}
+
+//ANIMATIONS
+// You can also specify custom transition classes by passing the following props to <Transition>:
+// enter-from-class
+// enter-active-class
+// enter-to-class
+// leave-from-class
+// leave-active-class
+// leave-to-class
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+
+.bounce-enter-active {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.vh-100 {
+  height: 100vh;
+}
+
+.wv-100 {
+  width: 100vw;
 }

@@ -2,6 +2,7 @@ import { useField } from "vee-validate";
 import { FIELDS_VARIABLES } from "@/utils/constants";
 
 const useFields = () => {
+  const { $testus } = useNuxtApp();
   const { emit, props, uid, ...instance } = getCurrentInstance();
 
   const component = computed(() => {
