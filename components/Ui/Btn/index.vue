@@ -9,8 +9,10 @@ const props = defineProps({
   showSlot: { type: Boolean, default: false },
   ghost: { type: Boolean, default: false },
   size: { type: String, default: "default" },
+  prefixCls: { type: String, default: "rdbx-btn" },
+  ripple: { type: Boolean, default: true },
 });
-const prefixCls = "rdbx-btn";
+
 const classes = computed(() => {
   return [
     `${prefixCls}`,
@@ -29,5 +31,22 @@ const classes = computed(() => {
 });
 </script>
 <template>
-  {{ classes }}
+  <button v-ripple type="button">
+    <Icon />
+    Button
+    <Icon />
+  </button>
 </template>
+<style>
+@keyframes ripple {
+  100% {
+    transform: translate(-50%, -50%) scale(100);
+    opacity: 0;
+  }
+}
+
+button {
+  width: 200px;
+  height: 100px;
+}
+</style>

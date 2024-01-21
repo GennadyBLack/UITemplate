@@ -13,12 +13,14 @@ const useModal = ({
   const bodyOverflowHidden = useState("bodyOverflowHidden", () => false);
 
   const open = ({ options = {} } = {}) => {
+    const isMobile = window?.matchMedia("(max-width: 450px)");
     const len = Object.keys(modalsList?.value)?.length;
     try {
       modalsList.value[name ?? uid] = {
         open: true,
         stretch,
         styles: { zIndex: len ? len * 100 : 100, ...style },
+        isMobile: isMobile,
         ...options,
       };
 

@@ -38,6 +38,11 @@ const update = _.debounce(() => {
   }
 }, props?.delay);
 
+const wheelEvent = (e) => {
+  //reached top
+  console.error(e);
+};
+
 const scrollEvent = (e) => {
   if (
     e?.target?.scrollHeight == e?.target?.scrollTop + e?.target?.offsetHeight &&
@@ -49,7 +54,11 @@ const scrollEvent = (e) => {
 };
 </script>
 <template>
-  <div @scroll="scrollEvent" :class="[props?.clsPrefix + 'base--list']">
+  <div
+    @scroll="scrollEvent"
+    :class="[props?.clsPrefix + 'base--list']"
+    @wheel="wheelEvent"
+  >
     <slot name="before"></slot>
     <slot name="title"></slot>
     <div

@@ -15,6 +15,7 @@
       <!-- The default slot to trigger the popper  -->
       <slot />
     </div>
+
     <Transition name="fade">
       <div
         @click="!interactive && closePopper()"
@@ -50,9 +51,6 @@ import useClickOutside from "~/composables/useClickOutside";
 const emit = defineEmits(["open:popper", "close:popper"]);
 const slots = useSlots();
 const props = defineProps({
-  /**
-   * Preferred placement (the "auto" placements will choose the side with most space.)
-   */
   placement: {
     type: String,
     default: "bottom",
@@ -240,7 +238,7 @@ const openPopper = async () => {
     return;
   }
 
-  closePopperDebounce();
+  //  closePopperDebounce();
   openPopperDebounce();
 };
 
@@ -249,7 +247,7 @@ const closePopper = async () => {
     return;
   }
 
-  openPopperDebounce();
+  // openPopperDebounce(); // waht the fuck man
   closePopperDebounce();
 };
 

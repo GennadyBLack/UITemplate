@@ -14,6 +14,9 @@ const props = defineProps({
   overflow: { type: Boolean, default: true },
   scrollable: { type: Boolean, default: false },
   stiky: { type: Boolean, default: false },
+  fullScreen: { type: Boolean, default: false },
+  placement: { type: String, default: "body" },
+  teleport: { type: Boolean, default: true },
   animation: {
     type: String,
     default: "bounce",
@@ -29,7 +32,9 @@ const CLASSES = computed(() => {
       props?.shadow ? "modal-background-shadow" : "modal-background"
     }  ${props?.prefix}-modal-${props?.name} ${props?.prefix}-modal`,
     close: `${props?.prefix}-close`,
-    content: `${props?.prefix}-content content-position--${props?.position}`,
+    content: `${props?.prefix}-content content-position--${props?.position} ${
+      props?.fullScreen && "full-screen"
+    }`,
     toggler: `${props?.prefix}-toggler`,
   };
 });
@@ -60,7 +65,7 @@ watchEffect(() => {
     >
       <slot name="activator" />
     </div>
-    <Teleport to="body">
+    <Teleport :to="placement" :disabled="!teleport">
       <Transition :name="props?.animation">
         <div :class="CLASSES.modal_wrapper" v-if="isOpen">
           <div
