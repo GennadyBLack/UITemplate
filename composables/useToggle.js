@@ -13,7 +13,6 @@ const useToggle = (initial = false) => {
   };
 
   onMounted(() => setToggle(initial));
-
   return { active, toggle, setToggle };
 };
 
