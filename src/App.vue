@@ -1,26 +1,23 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  {{ model }}
+  <Field
+    field="input"
+    v-model="model"
+    label="Label"
+    name="title"
+    :rules="{ required: true }"
+  />
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import Empty from "@/components/Field/Empty.vue";
+import Field from "@/components/Field/index";
+import { ref } from "vue";
+import useModal from "@/composables/useModal";
+import { Modal } from "./lib";
+import { setTheme } from "./composables/useTheme";
+setTheme();
+const modalc = useModal({ name: "modal" });
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+const model = ref("modelTest");
 </script>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

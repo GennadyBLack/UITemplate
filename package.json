@@ -1,22 +1,32 @@
 {
-  "name": "vue-jsx",
-  "version": "0.1.0",
-  "private": true,
+  "main": "./lib/rdbxxx.common.js",
+  "name": "rdbxxx",
+  "version": "0.1.6",
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build --target lib --name rdbxxx src/lib.js"
   },
   "dependencies": {
+    "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0",
+    "@vue/babel-preset-jsx": "^1.4.0",
     "core-js": "^3.8.3",
     "register-service-worker": "^1.7.2",
     "vue": "^3.2.13"
   },
   "devDependencies": {
+    "@popperjs/core": "^2.11.8",
+    "@vee-validate/rules": "^4.11.8",
     "@vue/cli-plugin-babel": "~5.0.0",
+    "@vee-validate/i18n": "^4.5.2",
     "@vue/cli-plugin-pwa": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
-    "sass": "^1.32.7",
-    "sass-loader": "^12.0.0"
+    "lodash": "^4.17.21",
+    "maska": "^2.1.10",
+    "sass": "^1.70.0",
+    "sass-loader": "^12.6.0",
+    "vee-validate": "^4.11.8",
+    "vue-toastification": "^2.0.0-rc.5"
   },
   "browserslist": [
     "> 1%",
