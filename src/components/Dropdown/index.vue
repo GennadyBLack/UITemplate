@@ -24,7 +24,7 @@
         ref="popperNode"
       >
         <slot name="content" :close="close" :isOpen="modifiedIsOpen">
-          {{ content }}AAAAAAAAA
+          {{ content }}
         </slot>
       </div>
     </Transition>

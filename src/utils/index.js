@@ -21,7 +21,7 @@ export const registerComponents = (vm) => {
           : filePre?.[1] + filePre?.[2]?.replace(/\.\w+$/, "");
       // Remove file extension and convert component name to pascal case
       const componentName = upperFirst(camelCase(fileName));
-      console.error(componentName, "filePath");
+
       vm.component(componentName, componentConfig.default || componentConfig);
     });
   } catch (err) {

@@ -8,16 +8,20 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const onChange = (e) => {
+      console.error(e);
       try {
         emit("update:modelValue", e.target.checked);
       } catch (error) {
         console.error(error);
       }
     };
+
     useRender(() => (
       <>
-        {props.modelValue}-modelCa
-        <input type={"radio"} checked={props?.value} onChange={onChange} />
+        <label class="switch">
+          <input type="checkbox" checked={props?.value} onChange={onChange} />
+          <span class="slider round"></span>
+        </label>
       </>
     ));
   },

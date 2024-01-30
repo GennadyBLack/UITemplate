@@ -4,7 +4,6 @@ import useFields from "@/composables/useFields";
 import Dropdown from "@/components/Dropdown";
 import Label from "./Label";
 import Message from "./Message";
-import Input from "@/components/Input/index";
 
 export default defineComponent({
   props: {
@@ -35,7 +34,7 @@ export default defineComponent({
     const hasLabel = computed(() => {
       return !!props?.label;
     });
-    const sexs = resolveComponent(component.value);
+    const componentInst = resolveComponent(component.value);
 
     useRender(() => {
       return (
@@ -45,13 +44,13 @@ export default defineComponent({
               {slots?.label({ label: props?.label, id: uid + "_field" })}
             </Label>
           )}
-
+          {model.value}
           <Dropdown
             show={errorMessage?.value?.length}
             placement={errorPlacement.value}
           >
             {{
-              default: () => <sexs {...props} v-model={model.value} />,
+              default: () => <componentInst {...props} v-model={model.value} />,
               content: () => <Message msg={errorMessage.value}></Message>,
             }}
           </Dropdown>

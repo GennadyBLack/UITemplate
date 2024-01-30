@@ -1,29 +1,3 @@
-<template>
-  <div class="">
-    <span id="loading" v-if="small"></span>
-    <div class="spiner-wrap" v-else>
-      <div class="lds-roller" :class="props?.type">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-    <slot />
-  </div>
-</template>
-
-<script setup>
-const props = defineProps({
-  type: String,
-  small: { type: Boolean, default: false },
-});
-</script>
-<style scoped>
 .spiner-wrap {
   display: flex;
   justify-content: center;
@@ -53,7 +27,7 @@ const props = defineProps({
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: rgb(154, 6, 6);
+  background: rgb(72, 106, 198);
   margin: -4px 0 0 -4px;
 }
 .lds-roller div:nth-child(1) {
@@ -141,4 +115,3 @@ const props = defineProps({
     -webkit-transform: rotate(360deg);
   }
 }
-</style>
