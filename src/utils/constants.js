@@ -1,16 +1,16 @@
 export const FIELDS_VARIABLES = {
-  input: "Inputindex",
-  input_phone: "UiInputPhone",
-  input_password: "UiInputPassword",
-  radio: "UiRadio",
-  checkbox: "UiCheck",
-  select: "UiSelect",
-  range: "UiRange",
-  switch: "UiSwitch",
-  date: "UiDate",
-  textarea: "UiTextarea",
-  slot: "UiFieldSlot",
-  empty: "UiFieldEmpty",
+  input: "Input",
+  input_phone: "InputPhone",
+  input_password: "InputPassword",
+  radio: "Radio",
+  checkbox: "Check",
+  select: "Select",
+  range: "Range",
+  switch: "Switch",
+  date: "Date",
+  textarea: "Textarea",
+  slot: "FieldSlot",
+  empty: "FieldEmpty",
 };
 
 export const DIMENSION_MAP = {

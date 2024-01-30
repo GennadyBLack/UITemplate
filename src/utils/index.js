@@ -16,7 +16,7 @@ export const registerComponents = (vm) => {
       // Get filename from the filePath
       const filePre = filePath.split("/");
       const fileName =
-        filePre?.[2] == "index.vue"
+        filePre?.[2] == "index.jsx"
           ? filePre?.[1]
           : filePre?.[1] + filePre?.[2]?.replace(/\.\w+$/, "");
       // Remove file extension and convert component name to pascal case
