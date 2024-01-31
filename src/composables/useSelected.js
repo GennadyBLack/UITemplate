@@ -1,8 +1,8 @@
-import _ from "lodash";
+import uniqueId from "lodash.uniqueid";
 
 //компосаблес для чекбокса//н оего бы перенести прямо в чекбокс ( если value = [] то пушить в него )
 const useSelected = ({ all, initial }) => {
-  const id = _.uniqueId();
+  const id = uniqueId();
   const selected = useState(`selected-${id}`, () => []);
 
   selected.value = [];

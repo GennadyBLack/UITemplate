@@ -8,7 +8,6 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const onChange = (e) => {
-      console.error(e);
       try {
         emit("update:modelValue", e.target.checked);
       } catch (error) {

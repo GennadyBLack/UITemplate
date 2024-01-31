@@ -16,8 +16,7 @@ export default defineComponent({
     };
     useRender(() => (
       <>
-        {props.modelValue}-modelCa
-        <input type={"radio"} checked={props?.value} onChange={onChange} />
+        <input type="radio" checked={props?.value} onChange={onChange} />
       </>
     ));
   },

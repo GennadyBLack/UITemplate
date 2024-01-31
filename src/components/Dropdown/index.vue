@@ -32,7 +32,8 @@
 </template>
 
 <script setup>
-import _ from "lodash";
+import "./index.css";
+import debounce from "lodash.debounce";
 import {
   ref,
   computed,
@@ -230,8 +231,8 @@ const interactiveStyle = computed(() =>
     : null
 );
 
-const openPopperDebounce = _.debounce(open, openDelay.value);
-const closePopperDebounce = _.debounce(close, closeDelay.value);
+const openPopperDebounce = debounce(open, openDelay.value);
+const closePopperDebounce = debounce(close, closeDelay.value);
 
 const openPopper = async () => {
   if (invalid.value || manualMode.value) {
@@ -274,7 +275,7 @@ watch(isOpen, (isOpen) => {
   if (isOpen) {
     modifiedIsOpen.value = true;
   } else {
-    _.debounce(() => {
+    debounce(() => {
       modifiedIsOpen.value = false;
     }, 200);
   }
@@ -299,10 +300,7 @@ watchEffect(() => {
 });
 </script>
 
-<style scoped>
-.inline-block {
-  display: inline-block;
-}
+<style>
 .popper {
   transition: background 250ms ease-in-out;
   background: var(--popper-theme-background-color);

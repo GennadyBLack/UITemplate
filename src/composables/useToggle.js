@@ -1,7 +1,7 @@
-import _ from "lodash";
+import uniqueId from "lodash.uniqueid";
 
 const useToggle = (initial = false) => {
-  const id = _.uniqueId();
+  const id = uniqueId();
   const active = useState(`useToggleActive-${id}`, () => false);
 
   const toggle = () => {

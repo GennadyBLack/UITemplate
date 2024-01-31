@@ -11,6 +11,6 @@ module.exports = {
       ? __dirname + "/lib"
       : __dirname + "/demo",
   css: {
-    extract: false,
+    extract: true,
   },
 };

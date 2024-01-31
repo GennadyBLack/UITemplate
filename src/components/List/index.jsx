@@ -1,6 +1,6 @@
 import { defineComponent, computed } from "vue";
 import { useRender } from "@/composables/useRender";
-import _ from "lodash";
+import debounce from "lodash.debounce";
 
 export default defineComponent({
   props: {
@@ -21,7 +21,7 @@ export default defineComponent({
       "update:modal-value",
     ]);
 
-    const reachBottom = _.debounce(() => {
+    const reachBottom = debounce(() => {
       try {
         emits("reach-bottom");
       } catch (error) {
@@ -29,7 +29,7 @@ export default defineComponent({
       }
     }, props?.delay);
 
-    const reachTop = _.debounce(() => {
+    const reachTop = debounce(() => {
       try {
         emits("reach-top");
       } catch (error) {
@@ -37,7 +37,7 @@ export default defineComponent({
       }
     }, props?.delay);
 
-    const update = _.debounce(() => {
+    const update = debounce(() => {
       try {
         emits("update:modal-value");
       } catch (error) {
@@ -67,21 +67,20 @@ export default defineComponent({
           class={[props?.clsPrefix + "base--list"]}
           onWheel={wheelEvent}
         >
-          {/* <slot name="before"></slot> 
-     <slot name="title"></slot> 
-    <div
-      class={[props?.clsPrefix + '-wrapper-item']}
-      v-for="item in props?.items"
-      :key="item?.id"
-    >
-      <slot name="item" :item="item">
-        <div>{{ item }}</div>
-      </slot>
-    </div>
-    <slot name="spiner">
-      <UiSpiner v-if="loading" />
-    </slot>
-    <slot name="after"></slot> */}
+          {slots?.before?.()}
+          {slots?.title?.()}
+
+          {props?.items?.length &&
+            props?.items?.map((item, idx) => (
+              <div
+                class={[props?.clsPrefix + "-wrapper-item"]}
+                key={idx ?? item?.id}
+              >
+                {slots?.item?.(item)}
+              </div>
+            ))}
+          {slots?.spiner?.() ?? (<UiSpiner /> && loading.value)}
+          {slots?.after?.()}
         </div>
       </>
     ));
