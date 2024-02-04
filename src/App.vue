@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import Field from "@/components/Field/index";
-import { ref } from "vue";
+import Field from '@/components/Field/index';
+import { ref } from 'vue';
 const model = ref(false);
 </script>

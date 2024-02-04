@@ -1,5 +1,5 @@
-import { defineComponent, h } from "vue";
-import { useRender } from "@/composables/useRender";
+import { defineComponent, h } from 'vue';
+import { useRender } from '@/composables/useRender';
 
 export default defineComponent({
   props: {
@@ -8,7 +8,7 @@ export default defineComponent({
     },
     tag: {
       type: String,
-      default: "div",
+      default: 'div',
     },
   },
   setup(props, { slots }) {
@@ -18,7 +18,6 @@ export default defineComponent({
           <p>
             {slots?.default?.()?.forEach((elem) => {
               elem.rules = { required: true };
-              console.error(elem?.type);
               return h(elem?.type, elem);
             })}
           </p>
