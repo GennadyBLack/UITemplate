@@ -20,7 +20,7 @@
     "vue": "^3.2.13"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "*.{js,jsx,vue}": "prettier --write --ignore-unknown"
   },
   "devDependencies": {
     "@popperjs/core": "^2.11.8",

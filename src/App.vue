@@ -1,8 +1,9 @@
 <template>
   <Modal>
     <template #default>asdasd</template>
-    <template #content>AAAAA</template> </Modal
-  ><Card background="black">
+    <template #content>AAAAA</template>
+  </Modal>
+  <Card background="black">
     <Field
       field="checkbox"
       v-model="model"
