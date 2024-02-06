@@ -32,10 +32,11 @@
 </template>
 
 <script setup>
-import "./index.css";
-import debounce from "lodash.debounce";
+import './index.css';
+import debounce from 'lodash.debounce';
 import {
   ref,
+  Transition,
   computed,
   defineProps,
   useSlots,
@@ -43,35 +44,35 @@ import {
   watch,
   watchEffect,
   onMounted,
-} from "vue";
+} from 'vue';
 
-import usePopper from "@/composables/usePopper";
-import useContent from "@/composables/useContent";
-import useClickOutside from "@/composables/useClickOutside";
+import usePopper from '@/composables/usePopper';
+import useContent from '@/composables/useContent';
+import useClickOutside from '@/composables/useClickOutside';
 
-const emit = defineEmits(["open:popper", "close:popper"]);
+const emit = defineEmits(['open:popper', 'close:popper']);
 const slots = useSlots();
 const props = defineProps({
   placement: {
     type: String,
-    default: "bottom",
+    default: 'bottom',
     validator: function (value) {
       return [
-        "auto",
-        "auto-start",
-        "auto-end",
-        "top",
-        "top-start",
-        "top-end",
-        "bottom",
-        "bottom-start",
-        "bottom-end",
-        "right",
-        "right-start",
-        "right-end",
-        "left",
-        "left-start",
-        "left-end",
+        'auto',
+        'auto-start',
+        'auto-end',
+        'top',
+        'top-start',
+        'top-end',
+        'bottom',
+        'bottom-start',
+        'bottom-end',
+        'right',
+        'right-start',
+        'right-end',
+        'left',
+        'left-start',
+        'left-end',
       ].includes(value);
     },
   },
@@ -87,14 +88,14 @@ const props = defineProps({
    */
   offsetSkid: {
     type: String,
-    default: "0",
+    default: '0',
   },
   /**
    * Offset in pixels away from the trigger element
    */
   offsetDistance: {
     type: String,
-    default: "12",
+    default: '12',
   },
   /**
    * Trigger the popper on hover
@@ -150,7 +151,7 @@ const props = defineProps({
    */
   arrowPadding: {
     type: String,
-    default: "0",
+    default: '0',
   },
   /**
    * If the Popper should be interactive, it will close when clicked/hovered if false
@@ -185,7 +186,7 @@ onMounted(() => {
 
   if (children && children.length > 1) {
     return console.error(
-      `[Popper]: The <Popper> component expects only one child element at its root. You passed ${children.length} child nodes.`
+      `[Popper]: The <Popper> component expects only one child element at its root. You passed ${children.length} child nodes.`,
     );
   }
 });
@@ -222,13 +223,13 @@ const manualMode = computed(() => show.value !== null);
 const invalid = computed(() => disabled.value || !hasContent.value);
 const shouldShowPopper = computed(() => isOpen.value && !invalid.value);
 const enableClickAway = computed(
-  () => !disableClickAway.value && !manualMode.value
+  () => !disableClickAway.value && !manualMode.value,
 );
 // Add an invisible border to keep the Popper open when hovering from the trigger into it
 const interactiveStyle = computed(() =>
   interactive.value
     ? `border: ${offsetDistance.value}px solid transparent; margin: -${offsetDistance.value}px;`
-    : null
+    : null,
 );
 
 const openPopperDebounce = debounce(open, openDelay.value);

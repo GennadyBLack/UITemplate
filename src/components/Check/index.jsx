@@ -1,5 +1,6 @@
-import { ref, defineComponent } from "vue";
-import { useRender } from "@/composables/useRender";
+import { defineComponent } from 'vue';
+import { useRender } from '@/composables/useRender';
+import Label from '../Field/Label';
 
 export default defineComponent({
   props: {
@@ -8,9 +9,8 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const onChange = (e) => {
-      console.error(e);
       try {
-        emit("update:modelValue", e.target.checked);
+        emit('update:modelValue', e.target.checked);
       } catch (error) {
         console.error(error);
       }
@@ -18,7 +18,6 @@ export default defineComponent({
 
     useRender(() => (
       <>
-        {props.modelValue}-modelCa
         <input type="checkbox" checked={props?.value} onChange={onChange} />
       </>
     ));

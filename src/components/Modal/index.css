@@ -142,3 +142,44 @@
 .wv-100 {
   width: 100vw;
 }
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+.committee-enter-from {
+  opacity: 0;
+  transform: translateX(-3rem);
+}
+.committee-enter-active {
+  transition: all 1s ease-in;
+}
+.committee-enter-to {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.35s ease;
+}
+
+.fade-enter-from,
+.fade-leave-active {
+  opacity: 0;
+}

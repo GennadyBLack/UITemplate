@@ -1,6 +1,7 @@
-import { defineComponent, computed } from "vue";
-import { useRender } from "@/composables/useRender";
-import debounce from "lodash.debounce";
+import { defineComponent, TransitionGroup } from 'vue';
+import { useRender } from '@/composables/useRender';
+import debounce from 'lodash.debounce';
+import './index.css';
 
 export default defineComponent({
   props: {
@@ -9,21 +10,21 @@ export default defineComponent({
       default: 0,
     },
     items: { type: Array, required: true },
-    clsPrefix: { type: String, default: "rdbx" },
+    clsPrefix: { type: String, default: 'rdbx' },
     loading: { type: Boolean, default: false },
     delay: { type: Number, default: 500 },
     spin: { type: Boolean, default: true },
   },
   setup(props, { slots }) {
     const emits = defineEmits([
-      "reach-top",
-      "reach-bottom",
-      "update:modal-value",
+      'reach-top',
+      'reach-bottom',
+      'update:modal-value',
     ]);
 
     const reachBottom = debounce(() => {
       try {
-        emits("reach-bottom");
+        emits('reach-bottom');
       } catch (error) {
         console.error(error);
       }
@@ -31,7 +32,7 @@ export default defineComponent({
 
     const reachTop = debounce(() => {
       try {
-        emits("reach-top");
+        emits('reach-top');
       } catch (error) {
         console.error(error);
       }
@@ -39,7 +40,7 @@ export default defineComponent({
 
     const update = debounce(() => {
       try {
-        emits("update:modal-value");
+        emits('update:modal-value');
       } catch (error) {
         console.error(error);
       }
@@ -62,9 +63,11 @@ export default defineComponent({
     };
     useRender(() => (
       <>
-        <div
+        <TransitionGroup
+          name="list"
+          tag="div"
           onScroll={scrollEvent}
-          class={[props?.clsPrefix + "base--list"]}
+          class={[props?.clsPrefix + 'base--list']}
           onWheel={wheelEvent}
         >
           {slots?.before?.()}
@@ -73,7 +76,7 @@ export default defineComponent({
           {props?.items?.length &&
             props?.items?.map((item, idx) => (
               <div
-                class={[props?.clsPrefix + "-wrapper-item"]}
+                class={[props?.clsPrefix + '-wrapper-item']}
                 key={idx ?? item?.id}
               >
                 {slots?.item?.(item)}
@@ -81,7 +84,7 @@ export default defineComponent({
             ))}
           {slots?.spiner?.() ?? (<UiSpiner /> && loading.value)}
           {slots?.after?.()}
-        </div>
+        </TransitionGroup>
       </>
     ));
   },

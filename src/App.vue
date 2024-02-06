@@ -3,19 +3,14 @@
     <template #default>asdasd</template>
     <template #content>AAAAA</template>
   </Modal>
-  <Card background="black">
-    <Field
-      field="checkbox"
-      v-model="model"
-      label="Label"
-      name="title"
-      :rules="{ required: true }"
-    />
-  </Card>
+
+  <Btn title="lol" @click="log" :loading="loading" />
 </template>
 
 <script setup>
-import Field from '@/components/Field/index';
 import { ref } from 'vue';
-const model = ref(false);
+const loading = ref(false);
+const log = () => {
+  loading.value = !loading.value;
+};
 </script>
