@@ -1,12 +1,12 @@
-import { camelCase, upperFirst } from "lodash";
+import { camelCase, upperFirst } from 'lodash';
 
 export const registerComponents = (vm) => {
   try {
     // Require base component context
     const requireComponent = require.context(
-      "../components",
+      '../components',
       true,
-      /[\w-]+\.jsx$/
+      /[\w-]+\.jsx$/,
     );
 
     requireComponent.keys().forEach((filePath) => {
@@ -14,18 +14,18 @@ export const registerComponents = (vm) => {
       const componentConfig = requireComponent(filePath);
 
       // Get filename from the filePath
-      const filePre = filePath.split("/");
+      const filePre = filePath.split('/');
       const fileName =
-        filePre?.[2] == "index.jsx"
+        filePre?.[2] == 'index.jsx'
           ? filePre?.[1]
-          : filePre?.[1] + filePre?.[2]?.replace(/\.\w+$/, "");
+          : filePre?.[1] + filePre?.[2]?.replace(/\.\w+$/, '');
       // Remove file extension and convert component name to pascal case
       const componentName = upperFirst(camelCase(fileName));
 
       vm.component(componentName, componentConfig.default || componentConfig);
     });
   } catch (err) {
-    console.log("Base component registration failed");
+    console.log('Base component registration failed');
     console.error(err);
   }
 };
@@ -34,24 +34,24 @@ export const registerComposables = (vm) => {
   try {
     // Require base component context
     const requireComponent = require.context(
-      "../composables",
+      '../composables',
       true,
-      /[\w-]+\.js$/
+      /[\w-]+\.js$/,
     );
 
     requireComponent.keys().forEach((filePath) => {
       // Get component config
       const compasable = requireComponent(filePath);
       // Get filename from the filePath
-      const fileName = filePath.split("/").slice(-1)[0];
+      const fileName = filePath.split('/').slice(-1)[0];
       // Remove file extension and convert component name to pascal case
       const componentName = upperFirst(
-        camelCase(fileName.replace(/\.\w+$/, ""))
+        camelCase(fileName.replace(/\.\w+$/, '')),
       );
       vm.use(compasable);
     });
   } catch (err) {
-    console.log("Base component registration failed");
+    console.log('Base component registration failed');
     console.error(err);
   }
 };
@@ -61,31 +61,19 @@ function cloneDeep(obj) {
 }
 
 function objNotEmpty(obj) {
-  if (typeof obj !== "object" || obj == null) return;
+  if (typeof obj !== 'object' || obj == null) return;
   return !!Object.keys(obj).length;
 }
 
-function uniqueId() {
-  var idstr = String.fromCharCode(Math.floor(Math.random() * 25 + 65));
-  do {
-    var ascicode = Math.floor(Math.random() * 42 + 48);
-    if (ascicode < 58 || ascicode > 64) {
-      idstr += String.fromCharCode(ascicode);
-    }
-  } while (idstr.length < 32);
-
-  return idstr;
-}
-
 const isObject = (obj) => {
-  return obj && typeof obj == "object" && !Array?.isArray(obj);
+  return obj && typeof obj == 'object' && !Array?.isArray(obj);
 };
 
 const isArray = (obj) => {
-  return obj && typeof obj == "object" && Array?.isArray(obj);
+  return obj && typeof obj == 'object' && Array?.isArray(obj);
 };
 
-export const isClient = typeof window !== "undefined";
+export const isClient = typeof window !== 'undefined';
 
 export const mergeObjectsData = (initialData, data, formatArray) => {
   try {
@@ -114,7 +102,7 @@ export const mergeObjectsData = (initialData, data, formatArray) => {
       return initialData.value;
     }
   } catch (error) {
-    console.error("formatObject", error);
+    console.error('formatObject', error);
   }
 };
 
@@ -141,14 +129,14 @@ export const formatObject = (data, formatArray) => {
       return data;
     }
   } catch (error) {
-    console.error("formatObject", error);
+    console.error('formatObject', error);
   }
 };
 
 export const formatObjectReverse = (
   data,
   getId = false,
-  formatArray = true
+  formatArray = true,
 ) => {
   //**formatArray -нужно ли обрабатывать вложенный массив  */
   try {
@@ -158,12 +146,12 @@ export const formatObjectReverse = (
         if (
           Utils.isObject(value) &&
           Object?.keys(value)?.length &&
-          !Object?.keys(value)?.includes("edit")
+          !Object?.keys(value)?.includes('edit')
         ) {
           let val = formatObjectReverse(value, getId);
           if (val) {
             pre[key] = val;
-            if (getId && data.hasOwnProperty("id")) pre["id"] = data?.id?.value;
+            if (getId && data.hasOwnProperty('id')) pre['id'] = data?.id?.value;
           } else {
             return null;
           }
@@ -185,12 +173,12 @@ export const formatObjectReverse = (
       return data;
     }
   } catch (error) {
-    console.error("formatObjectReverse", error);
+    console.error('formatObjectReverse', error);
   }
 };
 
 export const objectsEqual = (o1, o2) =>
-  typeof o1 === "object" && Object.keys(o1).length > 0
+  typeof o1 === 'object' && Object.keys(o1).length > 0
     ? Object.keys(o1).length === Object.keys(o2).length &&
       Object.keys(o1).every((p) => objectsEqual(o1[p], o2[p]))
     : o1 === o2;
@@ -200,9 +188,9 @@ export const isArraysEqual = (a1, a2) =>
 
 export const goTo = (route) => {
   if (process.client && route) {
-    Object.assign(document.createElement("a"), {
-      target: "_blank",
-      rel: " noreferrer",
+    Object.assign(document.createElement('a'), {
+      target: '_blank',
+      rel: ' noreferrer',
       href: route,
     }).click();
   }
@@ -211,7 +199,7 @@ export const goTo = (route) => {
 export const getByString = (obj, name) => {
   try {
     let pre = obj;
-    const names = name.split(".");
+    const names = name.split('.');
     for (let nam in names) {
       pre = pre[names[nam]];
     }
@@ -224,7 +212,7 @@ export const getByString = (obj, name) => {
 
 export function getProperty(obj, path, def) {
   try {
-    const names = path.split(".");
+    const names = path.split('.');
     let pre = obj;
     for (var i = 0; i < names.length; i++) {
       pre = pre?.[names[i]];
@@ -240,7 +228,7 @@ export function getProperty(obj, path, def) {
 export function setProperty(obj, path, value) {
   try {
     const r = !!obj?.value;
-    const names = path.split(".");
+    const names = path.split('.');
 
     if (r) {
       for (var i = 0; i < names.length - 1; i++) {
@@ -287,7 +275,7 @@ export const on = (function () {
   } else {
     return function (element, event, handler) {
       if (element && event && handler) {
-        element.attachEvent("on" + event, handler);
+        element.attachEvent('on' + event, handler);
       }
     };
   }
@@ -304,21 +292,118 @@ export const off = (function () {
   } else {
     return function (element, event, handler) {
       if (element && event) {
-        element.detachEvent("on" + event, handler);
+        element.detachEvent('on' + event, handler);
       }
     };
   }
 })();
 
+export function getDecimals(value) {
+  const trimmedStr = value.toString().trim();
+  return trimmedStr.includes('.')
+    ? trimmedStr.length - trimmedStr.indexOf('.') - 1
+    : 0;
+}
+
+export function chunk(str, size = 1) {
+  const chunked = [];
+  let index = 0;
+  while (index < str.length) {
+    chunked.push(str.substr(index, size));
+    index += size;
+  }
+  return chunked;
+}
+
+export function chunkArray(array, size = 1) {
+  return Array.from({ length: Math.ceil(array.length / size) }, (v, i) =>
+    array.slice(i * size, i * size + size),
+  );
+}
+export function includes(arr, val) {
+  return arr.includes(val);
+}
+export function isEmpty(val) {
+  return (
+    val === null ||
+    val === undefined ||
+    (typeof val === 'string' && val.trim() === '')
+  );
+}
+
+export function declination(number, titles = [' год', ' года', ' лет']) {
+  const cases = [2, 0, 1, 1, 1, 2];
+  return titles[
+    number % 100 > 4 && number % 100 < 20
+      ? 2
+      : cases[number % 10 < 5 ? number % 10 : 5]
+  ];
+}
+export function isNullOrUndefined(val) {
+  if (val === null || val === undefined) {
+    return true;
+  }
+  return false;
+}
+
+function uniqueId() {
+  var idstr = String.fromCharCode(Math.floor(Math.random() * 25 + 65));
+  do {
+    var ascicode = Math.floor(Math.random() * 42 + 48);
+    if (ascicode < 58 || ascicode > 64) {
+      idstr += String.fromCharCode(ascicode);
+    }
+  } while (idstr.length < 32);
+
+  return idstr;
+}
+
+export const substring = (str, length = 40) => {
+  const maxLength = length * 1.25;
+  return str && str.length > maxLength ? str.substring(0, length) + '...' : str;
+};
+
+export const findEl = async (hash, x) => {
+  return (
+    document.querySelector(hash) ||
+    new Promise((resolve, reject) => {
+      if (x > 50) {
+        return resolve();
+      }
+      setTimeout(() => {
+        resolve(findEl(hash, ++x || 1));
+      }, 100);
+    })
+  );
+};
+export const toPath = async (to) => {
+  if (to) {
+    let el = await findEl(to);
+    el.scrollIntoView(false);
+  }
+};
+
 const Utils = {
   log,
+  uniqueId,
   oneOf,
+  getDecimals,
+  includes,
+  isNullOrUndefined,
   setProperty,
+  declination,
+  isEmpty,
   minMax,
+  substring,
+  toPath,
+  findEl,
+  chunkArray,
   getProperty,
   getByString,
   off,
+  chunk,
   on,
+  isArray,
   cloneDeep,
   goTo,
   objNotEmpty,
